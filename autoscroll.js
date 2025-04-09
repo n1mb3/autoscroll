@@ -52,7 +52,7 @@
         container.style.flexDirection = 'column';
         container.style.gap = '5px';
         container.style.backgroundColor = 'rgba(45, 45, 45, 0.7)';
-        container.style.padding = '5px 10px';
+        container.style.padding = '3px 5px';
         container.style.borderRadius = '4px';
         container.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
         container.style.cursor = 'grab'; // Indica que é arrastável
