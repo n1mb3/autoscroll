@@ -95,7 +95,7 @@
         versionDisplay.style.textAlign = 'center';
         versionDisplay.style.width = '100%';
         versionDisplay.style.marginTop = '2px';
-        versionDisplay.textContent = 'v1.0';
+        versionDisplay.textContent = 'v1.1';
 
         // Função para criar botões de controle
         function createControlButton(text, title) {
@@ -325,15 +325,20 @@
             console.log('Velocidade reduzida para: ' + window.scrollSpeed.toFixed(1));
         });
 
-        // Função para esconder/mostrar os controles com base no estado do scroll
         function updateControlsVisibility() {
             const controls = document.querySelectorAll('.fsociety-control-button, .fsociety-control-element');
+            const progressDisplay = document.getElementById('fsocietyProgressDisplay');
+            const versionDisplay = document.getElementById('fsocietyVersionDisplay');
             
             if (window.isScrolling) {
                 // Quando ativo (rolando), esconde tudo exceto a porcentagem
                 controls.forEach(control => {
                     control.style.display = 'none';
                 });
+                
+                // Adiciona margin-left para a porcentagem e versão quando ativo
+                if (progressDisplay) progressDisplay.style.marginLeft = '2px';
+                if (versionDisplay) versionDisplay.style.marginLeft = '2px';
             } else {
                 // Quando pausado, mostra todos os controles
                 controls.forEach(control => {
@@ -343,6 +348,10 @@
                         control.style.display = 'block';
                     }
                 });
+                
+                // Remove margin-left quando pausado
+                if (progressDisplay) progressDisplay.style.marginLeft = '0px';
+                if (versionDisplay) versionDisplay.style.marginLeft = '0px';
             }
         }
 
