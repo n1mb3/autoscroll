@@ -124,6 +124,7 @@
         const decreaseBtn = createControlButton('-', 'Diminuir velocidade');
         const prevChapterBtn = createControlButton('◀', 'Capítulo Anterior');
         const fullscreenBtn = createControlButton('⛶', 'Modo Tela Cheia'); // Novo botão para modo tela cheia
+        const clearCacheBtn = createControlButton('↻', 'Limpar Cache'); // Novo botão para limpar cache
 
         // Display da velocidade atual
         const speedDisplay = document.createElement('div');
@@ -141,6 +142,7 @@
         miniControls.appendChild(decreaseBtn);
         miniControls.appendChild(prevChapterBtn);
         miniControls.appendChild(fullscreenBtn); // Adiciona o botão de tela cheia
+        miniControls.appendChild(clearCacheBtn); // Adiciona o botão de limpar cache
         miniControls.appendChild(progressDisplay);
         miniControls.appendChild(versionDisplay); // Adiciona o indicador de versão
         container.appendChild(miniControls);
@@ -201,6 +203,9 @@
 
         // Adiciona evento para o botão de tela cheia
         fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        // Adiciona evento para o botão de limpar cache
+        clearCacheBtn.addEventListener('click', clearBrowserCache);
 
         // Inicializa as variáveis para controle do scroll
         if (!window.fsocietyScrollInitialized) {
@@ -451,6 +456,28 @@
             } else {
                 fullscreenBtn.innerText = '⛶';
                 fullscreenBtn.title = 'Modo Tela Cheia';
+            }
+        }
+
+        // Função para limpar o cache e recarregar a página
+        function clearBrowserCache() {
+            // Exibe uma mensagem de confirmação
+            if (confirm("Limpar o cache e recarregar a página?")) {
+                console.log("Limpando cache e recarregando...");
+                
+                // Força o recarregamento ignorando o cache
+                const currentUrl = window.location.href;
+                const timestamp = new Date().getTime();
+                
+                // Verifica se a URL já tem parâmetros
+                const hasParams = currentUrl.includes('?');
+                const separator = hasParams ? '&' : '?';
+                
+                // Adiciona um timestamp para forçar o recarregamento ignorando o cache
+                const newUrl = `${currentUrl}${separator}nocache=${timestamp}`;
+                
+                // Recarrega a página com o parâmetro de timestamp
+                window.location.replace(newUrl);
             }
         }
 
