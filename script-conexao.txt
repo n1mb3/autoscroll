@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         AutoScroll conexao (GitHub)
 // @namespace    http://tampermonkey.net/
-// @version      13
+// @version      1
 // @description  Carrega o AutoScroll diretamente do GitHub para facilitar atualizações
-// @author       FSociety
+// @author       Nimbcorp
 // @match        *://*/*
 // @grant        none
 // @require      https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js

@@ -236,10 +236,17 @@
 
             // Configura um intervalo separado para atualizar a UI (desacoplado da animação)
             window.progressUpdateInterval = setInterval(function() {
-                if (window.isScrolling) {
-                    updateScrollProgress();
-                }
+                updateScrollProgress(); // Sempre atualiza, independente do estado de rolagem
             }, 200); // Atualiza a cada 200ms - frequência suficiente para UI
+
+            // Adiciona evento de scroll para atualizar o progresso durante rolagem manual
+            if (!window.scrollListenerAdded) {
+                window.scrollListenerAdded = true;
+                window.scrollListener = function() {
+                    updateScrollProgress();
+                };
+                window.addEventListener('scroll', window.scrollListener, { passive: true });
+            }
 
             console.log('FSociety AutoScroll inicializado. Rolagem automática pausada. Pressione espaço ou dê duplo clique para iniciar.');
         }
@@ -655,6 +662,12 @@
         document.removeEventListener('webkitfullscreenchange', updateFullscreenButton);
         document.removeEventListener('mozfullscreenchange', updateFullscreenButton);
         document.removeEventListener('MSFullscreenChange', updateFullscreenButton);
+
+        // Remove o event listener do scroll se possível
+        if (window.scrollListener) {
+            window.removeEventListener('scroll', window.scrollListener);
+            window.scrollListenerAdded = false;
+        }
 
         console.log("AutoScroll completamente removido da página.");
     }
