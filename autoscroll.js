@@ -95,7 +95,7 @@
         versionDisplay.style.textAlign = 'center';
         versionDisplay.style.width = '100%';
         versionDisplay.style.marginTop = '2px';
-        versionDisplay.textContent = 'v1.1';
+        versionDisplay.textContent = 'v1.2';
 
         // Função para criar botões de controle
         function createControlButton(text, title) {
