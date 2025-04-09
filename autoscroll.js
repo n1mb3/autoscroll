@@ -87,6 +87,16 @@
         progressDisplay.textContent = '0%';
         progressDisplay.dataset.lastPercentage = '0'; // Para evitar atualizações desnecessárias
 
+        // Indicador de versão abaixo da porcentagem
+        const versionDisplay = document.createElement('div');
+        versionDisplay.id = 'fsocietyVersionDisplay';
+        versionDisplay.style.color = '#888888';
+        versionDisplay.style.fontSize = '7px';
+        versionDisplay.style.textAlign = 'center';
+        versionDisplay.style.width = '100%';
+        versionDisplay.style.marginTop = '2px';
+        versionDisplay.textContent = 'v1.0';
+
         // Função para criar botões de controle
         function createControlButton(text, title) {
             const btn = document.createElement('button');
@@ -132,6 +142,7 @@
         miniControls.appendChild(prevChapterBtn);
         miniControls.appendChild(fullscreenBtn); // Adiciona o botão de tela cheia
         miniControls.appendChild(progressDisplay);
+        miniControls.appendChild(versionDisplay); // Adiciona o indicador de versão
         container.appendChild(miniControls);
 
         // Adiciona o container à página
