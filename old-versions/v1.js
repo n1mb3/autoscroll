@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Autoscroll Nimbcorp
+// @name         AutoScroll com Remoção de Banner e Persistência (Velocidade Constante)
 // @namespace    http://tampermonkey.net/
 // @version      2
 // @description  Adiciona botão de AutoScroll em páginas, remove banner e salva progresso (com velocidade constante)
-// @author       Nimbcorp
+// @author       FSociety
 // @match        *://*/*
 // @grant        none
 // ==/UserScript==
@@ -246,30 +246,22 @@
 
         // Função otimizada para calcular e atualizar o progresso do scroll
         function updateScrollProgress() {
-            // Calcula a altura total rolável da página de forma mais precisa
-            const docHeight = Math.max(
-                document.body.scrollHeight,
-                document.documentElement.scrollHeight,
-                document.body.offsetHeight,
-                document.documentElement.offsetHeight,
-                document.body.clientHeight,
-                document.documentElement.clientHeight
-            );
-            
-            const viewportHeight = window.innerHeight;
-            const scrollableHeight = docHeight - viewportHeight;
-            
-            // Se não houver altura rolável (página muito pequena), não atualiza
-            if (scrollableHeight <= 0) {
-                return;
+            // Cache da altura do documento para evitar cálculos repetitivos
+            if (!window.cachedTotalHeight || window.innerHeight !== window.lastWindowHeight) {
+                window.lastWindowHeight = window.innerHeight;
+                window.cachedTotalHeight = Math.max(
+                    document.body.scrollHeight,
+                    document.documentElement.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.offsetHeight,
+                    document.body.clientHeight,
+                    document.documentElement.clientHeight
+                ) - window.innerHeight;
             }
-            
-            // Obtém a posição atual de scroll de forma confiável
-            const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-            
-            // Calcula a porcentagem de forma precisa
-            const percentage = Math.min(100, Math.max(0, Math.round((scrollPosition / scrollableHeight) * 100)));
-            
+
+            const scrollPosition = window.scrollY || window.pageYOffset;
+            const percentage = Math.min(100, Math.max(0, Math.floor((scrollPosition / window.cachedTotalHeight) * 100)));
+
             const progressElement = document.getElementById('fsocietyProgressDisplay');
             if (progressElement && progressElement.dataset.lastPercentage != percentage) {
                 progressElement.textContent = `${percentage}%`;
