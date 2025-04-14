@@ -1,31 +1,14 @@
 // ==UserScript==
 // @name         AutoScroll conexao (GitHub)
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Carrega o AutoScroll diretamente do GitHub para facilitar atualizações
 // @author       Nimbcorp
 // @match        *://*/*
-// @grant        GM_xmlhttpRequest
-// @connect      raw.githubusercontent.com
-// @run-at       document-start
+// @grant        none
 // @require      https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js?v=1.1
-// @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/main/script-conexao.txt
-// @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/main/script-conexao.txt
+// @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js
+// @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js
 // ==/UserScript==
-
-// Script carregado diretamente de GitHub com versão para controle de cache
-// A adição do parâmetro ?v=1.1 na URL ajuda a forçar o recarregamento quando há atualizações
-// Aumentou-se o número da versão para 1.1 para forçar a atualização
-
-(function() {
-    'use strict';
-    
-    // Força o recarregamento do script sempre que a página é carregada
-    // Isso ajuda a evitar problemas de cache
-    const timestamp = new Date().getTime();
-    const script = document.createElement('script');
-    script.src = `https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js?nocache=${timestamp}`;
-    document.head.appendChild(script);
-    
-    console.log('AutoScroll conexao v1.1 - Script carregado com timestamp para prevenir cache');
-})();
+// Script carregado diretamente de https://github.com/n1mb3/autoscroll/blob/main/autoscroll.js
+// Não é necessário código adicional neste arquivo, pois o script é carregado do GitHub

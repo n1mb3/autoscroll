@@ -32,8 +32,9 @@
         // Chama a função para remover banner
         removerBanner(2000); // Remove após 2 segundos
 
-        // Não inicia se já estiver rolando
-        if (document.getElementById('fsocietyAutoScrollBtn')) {
+        // Não inicia se já estiver rolando - usando o ID correto do container
+        if (document.getElementById('fsocietyAutoScrollContainer')) {
+            console.log('AutoScroll já está ativo na página');
             return;
         }
 
@@ -95,7 +96,7 @@
         versionDisplay.style.textAlign = 'center';
         versionDisplay.style.width = '100%';
         versionDisplay.style.marginTop = '2px';
-        versionDisplay.textContent = 'v1.4';
+        versionDisplay.textContent = 'v1.5';
 
         // Função para criar botões de controle
         function createControlButton(text, title) {
