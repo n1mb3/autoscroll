@@ -1,127 +1,14 @@
 // ==UserScript==
 // @name         AutoScroll conexao (GitHub)
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.0
 // @description  Carrega o AutoScroll diretamente do GitHub para facilitar atualizações
 // @author       Nimbcorp
 // @match        *://*/*
-// @grant        GM_xmlhttpRequest
-// @grant        GM_addStyle
-// @grant        GM_info
-// @connect      raw.githubusercontent.com
-// @run-at       document-start
-// @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/main/script-conexao.txt
-// @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/main/script-conexao.txt
+// @grant        none
+// @require      https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/carregar-autoscroll.js
+// @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/carregar-autoscroll.js
+// @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/carregar-autoscroll.js
 // ==/UserScript==
-
-(function() {
-    'use strict';
-    
-    // Função para carregar o script evitando cache com GM_xmlhttpRequest
-    function carregarScriptSemCache() {
-        const timestamp = new Date().getTime();
-        const url = `https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js?nocache=${timestamp}`;
-        
-        console.log(`Tentando carregar AutoScroll de: ${url}`);
-        
-        GM_xmlhttpRequest({
-            method: 'GET',
-            url: url,
-            nocache: true,
-            headers: {
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-                "Pragma": "no-cache",
-                "Expires": "0"
-            },
-            onload: function(response) {
-                if (response.status === 200) {
-                    try {
-                        // Executa o script recebido
-                        const script = document.createElement('script');
-                        script.textContent = response.responseText;
-                        document.head.appendChild(script);
-                        
-                        console.log('AutoScroll v1.2 - Script carregado com sucesso via GM_xmlhttpRequest');
-                        
-                        // Adiciona um botão de atualização no canto superior direito
-                        adicionarBotaoAtualizar();
-                    } catch (e) {
-                        console.error('Erro ao executar o script:', e);
-                    }
-                } else {
-                    console.error('Falha ao carregar o script. Status:', response.status);
-                }
-            },
-            onerror: function(error) {
-                console.error('Erro na requisição do script:', error);
-            }
-        });
-    }
-    
-    // Função para adicionar um botão de atualização no estilo do AutoScroll
-    function adicionarBotaoAtualizar() {
-        // Remover o botão anterior se existir
-        const botaoAnterior = document.getElementById('fsocietyAtualizarBtn');
-        if (botaoAnterior) botaoAnterior.remove();
-        
-        // Cria o botão flutuante para recarregar o script
-        const botaoAtualizar = document.createElement('button');
-        botaoAtualizar.id = 'fsocietyAtualizarBtn';
-        botaoAtualizar.innerHTML = '↻';
-        botaoAtualizar.title = 'Atualizar AutoScroll (Forçar reload)';
-        
-        // Estiliza o botão igual ao AutoScroll
-        botaoAtualizar.style.position = 'fixed';
-        botaoAtualizar.style.top = '10px';
-        botaoAtualizar.style.right = '10px';
-        botaoAtualizar.style.zIndex = '10000';
-        botaoAtualizar.style.backgroundColor = '#333333';
-        botaoAtualizar.style.color = 'white';
-        botaoAtualizar.style.border = 'none';
-        botaoAtualizar.style.borderRadius = '3px';
-        botaoAtualizar.style.width = '25px';
-        botaoAtualizar.style.height = '25px';
-        botaoAtualizar.style.fontSize = '10px';
-        botaoAtualizar.style.cursor = 'pointer';
-        botaoAtualizar.style.display = 'flex';
-        botaoAtualizar.style.justifyContent = 'center';
-        botaoAtualizar.style.alignItems = 'center';
-        botaoAtualizar.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-        
-        // Adiciona o evento de clique para recarregar o script
-        botaoAtualizar.addEventListener('click', function() {
-            // Primeiro, remove qualquer instância atual do AutoScroll
-            const container = document.getElementById('fsocietyAutoScrollContainer');
-            if (container) container.remove();
-            
-            // Limpa variáveis globais se existirem
-            if (window.fsocietyScrollInitialized) {
-                window.fsocietyScrollInitialized = false;
-                window.isScrolling = false;
-                
-                if (window.smoothScrollInterval) {
-                    cancelAnimationFrame(window.smoothScrollInterval);
-                }
-                
-                if (window.progressUpdateInterval) {
-                    clearInterval(window.progressUpdateInterval);
-                }
-            }
-            
-            // Carrega o script novamente
-            carregarScriptSemCache();
-            
-            // Feedback ao usuário
-            alert('AutoScroll recarregado com sucesso! A versão mais recente foi buscada ignorando o cache.');
-        });
-        
-        // Adiciona à página
-        document.body.appendChild(botaoAtualizar);
-        
-        // Informações sobre a versão (opcional)
-        console.log('Versão do script conexão:', GM_info.script.version);
-    }
-    
-    // Carrega o script imediatamente quando a página carrega
-    carregarScriptSemCache();
-})();
+// Script carregado diretamente de https://github.com/n1mb3/autoscroll/blob/main/carregar-autoscroll.js
+// Não é necessário código adicional neste arquivo, pois o script é carregado do GitHub
