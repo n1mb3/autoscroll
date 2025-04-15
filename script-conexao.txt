@@ -6,9 +6,9 @@
 // @author       Nimbcorp
 // @match        *://*/*
 // @grant        none
-// @require      https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js?v=1.1
-// @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js
-// @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/main/autoscroll.js
+// @require      https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/autoscroll.js
+// @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/autoscroll.js
+// @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/autoscroll.js
 // ==/UserScript==
 // Script carregado diretamente de https://github.com/n1mb3/autoscroll/blob/main/autoscroll.js
 // Não é necessário código adicional neste arquivo, pois o script é carregado do GitHub

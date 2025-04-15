@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autoscroll Nimbcorp
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.7
 // @description  Adiciona botão de AutoScroll em páginas, remove banner e salva progresso (com velocidade constante)
 // @author       Nimbcorp
 // @match        *://*/*
@@ -96,7 +96,7 @@
         versionDisplay.style.textAlign = 'center';
         versionDisplay.style.width = '100%';
         versionDisplay.style.marginTop = '2px';
-        versionDisplay.textContent = 'v1.6';
+        versionDisplay.textContent = 'v1.7';
 
         // Função para criar botões de controle
         function createControlButton(text, title) {
