@@ -5,7 +5,7 @@
 // @description  Carrega o AutoScroll diretamente do GitHub para facilitar atualizações
 // @author       Nimbcorp
 // @match        *://*/*
-// @grant        none
+// @grant        GM_xmlhttpRequest
 // @require      https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/carregar-autoscroll.js
 // @updateURL    https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/carregar-autoscroll.js
 // @downloadURL  https://raw.githubusercontent.com/n1mb3/autoscroll/refs/heads/main/carregar-autoscroll.js
