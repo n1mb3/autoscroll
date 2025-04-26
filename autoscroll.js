@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autoscroll Nimbcorp
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.1
 // @description  Adiciona botão de AutoScroll em páginas, remove banner e salva progresso (com velocidade constante)
 // @author       Nimbcorp
 // @match        *://*/*
@@ -96,7 +96,7 @@
         versionDisplay.style.textAlign = 'center';
         versionDisplay.style.width = '100%';
         versionDisplay.style.marginTop = '2px';
-        versionDisplay.textContent = 'v2.0';
+        versionDisplay.textContent = 'v2.1';
 
         // Função para criar botões de controle
         function createControlButton(text, title) {
@@ -207,7 +207,7 @@
         if (!window.fsocietyScrollInitialized) {
             window.fsocietyScrollInitialized = true;
             window.isScrolling = false; // Inicia pausado
-            window.scrollSpeed = 1.4; // Velocidade inicial e constante
+            window.scrollSpeed = 1.0; // Velocidade inicial e constante
 
             // *** Nova função de scroll com velocidade constante ***
             window.smoothScroll = function() {
