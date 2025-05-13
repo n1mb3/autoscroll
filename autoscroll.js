@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autoscroll Nimbcorp
 // @namespace    http://tampermonkey.net/
-// @version      2.1
+// @version      2.3
 // @description  Adiciona botão de AutoScroll em páginas, remove banner e salva progresso (com velocidade constante)
 // @author       Nimbcorp
 // @match        *://*/*
@@ -96,7 +96,25 @@
         versionDisplay.style.textAlign = 'center';
         versionDisplay.style.width = '100%';
         versionDisplay.style.marginTop = '2px';
-        versionDisplay.textContent = 'v2.1';
+        versionDisplay.textContent = 'v2.3';
+
+        // Botão de play/stop (adicionar após versionDisplay)
+        const playStopBtn = document.createElement('button');
+        playStopBtn.id = 'fsocietyPlayStopBtn';
+        playStopBtn.style.backgroundColor = '#333333';
+        playStopBtn.style.color = 'white';
+        playStopBtn.style.border = 'none';
+        playStopBtn.style.borderRadius = '3px';
+        playStopBtn.style.width = '25px';
+        playStopBtn.style.height = '25px';
+        playStopBtn.style.fontSize = '10px';
+        playStopBtn.style.cursor = 'pointer';
+        playStopBtn.style.display = 'flex';
+        playStopBtn.style.justifyContent = 'center';
+        playStopBtn.style.alignItems = 'center';
+        playStopBtn.style.margin = '2px auto';
+        playStopBtn.title = 'Play/Stop';
+        playStopBtn.innerText = '▶'; // Símbolo de play inicial
 
         // Função para criar botões de controle
         function createControlButton(text, title) {
@@ -140,10 +158,11 @@
         miniControls.appendChild(increaseBtn);
         miniControls.appendChild(speedDisplay);
         miniControls.appendChild(decreaseBtn);
-        miniControls.appendChild(prevChapterBtn);
+        //miniControls.appendChild(prevChapterBtn);
         miniControls.appendChild(fullscreenBtn); // Adiciona o botão de tela cheia
         miniControls.appendChild(progressDisplay);
         miniControls.appendChild(versionDisplay); // Adiciona o indicador de versão
+        miniControls.appendChild(playStopBtn); // Adiciona o botão play/stop
         container.appendChild(miniControls);
 
         // Adiciona o container à página
@@ -199,6 +218,7 @@
         // Adiciona eventos para os botões de navegação
         nextChapterBtn.addEventListener('click', () => navigateToChapter(1)); // Próximo capítulo (+1)
         prevChapterBtn.addEventListener('click', () => navigateToChapter(-1)); // Capítulo anterior (-1)
+        playStopBtn.addEventListener('click', toggleScrollState);
 
         // Adiciona evento para o botão de tela cheia
         fullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -207,7 +227,7 @@
         if (!window.fsocietyScrollInitialized) {
             window.fsocietyScrollInitialized = true;
             window.isScrolling = false; // Inicia pausado
-            window.scrollSpeed = 1.0; // Velocidade inicial e constante
+            window.scrollSpeed = 0.9; // Velocidade inicial e constante
 
             // *** Nova função de scroll com velocidade constante ***
             window.smoothScroll = function() {
@@ -330,16 +350,17 @@
             const controls = document.querySelectorAll('.fsociety-control-button, .fsociety-control-element');
             const progressDisplay = document.getElementById('fsocietyProgressDisplay');
             const versionDisplay = document.getElementById('fsocietyVersionDisplay');
+            const playStopBtn = document.getElementById('fsocietyPlayStopBtn');
             
             if (window.isScrolling) {
-                // Quando ativo (rolando), esconde tudo exceto a porcentagem
+                // Quando ativo (rolando), esconde tudo exceto a porcentagem e o botão play/stop
                 controls.forEach(control => {
                     control.style.display = 'none';
                 });
                 
-                // Adiciona margin-left para a porcentagem e versão quando ativo
                 if (progressDisplay) progressDisplay.style.marginLeft = '2px';
                 if (versionDisplay) versionDisplay.style.marginLeft = '2px';
+                if (playStopBtn) playStopBtn.style.display = 'flex'; // Mantém o botão visível
             } else {
                 // Quando pausado, mostra todos os controles
                 controls.forEach(control => {
@@ -350,7 +371,6 @@
                     }
                 });
                 
-                // Remove margin-left quando pausado
                 if (progressDisplay) progressDisplay.style.marginLeft = '0px';
                 if (versionDisplay) versionDisplay.style.marginLeft = '0px';
             }
@@ -360,20 +380,21 @@
         function toggleScrollState() {
             window.isScrolling = !window.isScrolling;
             console.log('AutoScroll ' + (window.isScrolling ? 'iniciado' : 'pausado'));
-
+        
+            // Atualiza o botão play/stop
+            updatePlayStopButton();
+        
             // Atualiza a visibilidade dos controles com base no novo estado
             updateControlsVisibility();
-
+        
             // Se estamos iniciando o scroll e não está ativo, iniciar
             if (window.isScrolling && !window.smoothScrollActive) {
                 window.smoothScrollActive = true;
-
-                // Cancelamos qualquer frame anterior que possa estar pendente
+        
                 if (window.smoothScrollInterval) {
                     cancelAnimationFrame(window.smoothScrollInterval);
                 }
-
-                // Iniciamos o scroll
+        
                 window.smoothScrollInterval = requestAnimationFrame(window.smoothScroll);
             }
         }
@@ -691,6 +712,14 @@
         }
 
         console.log("AutoScroll completamente removido da página.");
+    }
+
+    function updatePlayStopButton() {
+        const playStopBtn = document.getElementById('fsocietyPlayStopBtn');
+        if (playStopBtn) {
+            playStopBtn.innerText = window.isScrolling ? '⏹' : '▶';
+            playStopBtn.title = window.isScrolling ? 'Stop' : 'Play';
+        }
     }
 
     // Aguarda o carregamento completo da página antes de iniciar

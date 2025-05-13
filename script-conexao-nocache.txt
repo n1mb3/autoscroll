@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AutoScroll conexao (GitHub)
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      15.0
 // @description  Carrega o AutoScroll diretamente do GitHub para facilitar atualizações
 // @author       Nimbcorp
 // @match        *://*/*
